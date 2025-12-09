@@ -9,7 +9,6 @@ namespace QuanLyKhoi.QuanLySinhVien
         public int Tuoi { get; set; }
         public double DiemTB { get; set; }
 
-        public SinhVien() { } // Cần cho Deserialization JSON
         
         public SinhVien(string maSv, string hoTen, int tuoi, double diemTb)
         {

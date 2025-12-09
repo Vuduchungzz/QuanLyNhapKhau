@@ -74,6 +74,10 @@ namespace QuanLyKhoi.QuanLySinhVien
 
         }
 
+        public static void AddBook()
+        {
+            
+        }
         
     }
     
