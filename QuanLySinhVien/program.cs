@@ -74,9 +74,17 @@ namespace QuanLyKhoi.QuanLySinhVien
 
         }
 
-        public static void AddBook()
+        public static void AddStudent()
         {
-            
+            C.WriteLine("\n-----Thêm sinh viên-----");
+            C.WriteLine("Nhập mã sinh viên: ");
+            string? input = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                throw new Exception("Mã sinh viên không được để trống.");
+            }
+            string maSv = input;
+
         }
         
     }
