@@ -111,7 +111,7 @@ namespace QuanLyKhoi.QuanLySinhVien
             // nhập tuổi của sinh viên 
 
             C.Write("Nhập số tuổi của sinh viên: ");
-            if(!int.TryParse(C.ReadLine(), out int tuoi) || tuoi <= 0)
+            if (!int.TryParse(C.ReadLine(), out int tuoi) || tuoi <= 0)
             {
                 throw new ArgumentException("Tuổi không hợp lệ.");
             }
@@ -120,16 +120,51 @@ namespace QuanLyKhoi.QuanLySinhVien
 
             C.Write("Nhập điểm trung bình (0-10): ");
 
-            if(!double.TryParse(C.ReadLine(),out double diemTbinh) || diemTbinh < 0 || diemTbinh >= 10)
+            if (!double.TryParse(C.ReadLine(), out double diemTbinh) || diemTbinh < 0 || diemTbinh >= 10)
             {
                 throw new ArgumentException("Điểm trung bình không hợp lệ!");
             }
-            danhSachSv.Add(new SinhVien(maSv,fullNameOfStudent,tuoi,diemTbinh));
+            danhSachSv.Add(new SinhVien(maSv, fullNameOfStudent, tuoi, diemTbinh));
             C.WriteLine("Lưu file thành công!");
             LuuFile();
             Thread.Sleep(1500);
         }
 
+        // sửa sinh viên 
+        public static void SuaSinhVien()
+        {
+            C.Write("\n---Sửa sinh viên---");
+
+            C.WriteLine("Nhập mã sinh viên cần sửa: ");
+
+            string? MaSinhVien = C.ReadLine();
+
+            SinhVien? svCanSua =
+                (from sv in danhSachSv
+                 where sv.MaSV.Equals(MaSinhVien, StringComparison.OrdinalIgnoreCase)
+                 select sv).FirstOrDefault();
+
+            if (svCanSua == null)
+            {
+                C.WriteLine("Không tìm thấy sinh viên với mã này.");
+                return;
+            }
+
+            C.WriteLine($"\n ---thông tin cũ {svCanSua.ToString}---");
+
+            C.Write("Nhập Tên mới (Enter để giữ nguyên): ");
+            string? HoTenMoi = C.ReadLine();
+            if (!string.IsNullOrEmpty(HoTenMoi))
+            {
+                svCanSua.HoTen = HoTenMoi;
+            }
+            C.WriteLine("\nSửa thông tin thành công!");
+            LuuFile();
+            Thread.Sleep(1500);
+
+            // nhập tuổi của sinh viên 
+
+        }
     }
 
 }
