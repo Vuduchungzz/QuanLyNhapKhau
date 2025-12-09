@@ -17,7 +17,7 @@ namespace QuanLyKhoi.QuanLySinhVien
             // kiem tra file ton tai
             if (!File.Exists(File_Name))
             {
-                Console.WriteLine("File dữ liệu chưa tồn tại. Bắt đầu với danh sách trống.");
+                C.WriteLine("File dữ liệu chưa tồn tại. Bắt đầu với danh sách trống.");
                 danhSachSv = new List<SinhVien>();
                 return;
             }
@@ -42,19 +42,19 @@ namespace QuanLyKhoi.QuanLySinhVien
             }
             catch (JsonException)
             {
-                Console.WriteLine("Lỗi định dạng JSON trong file. Khởi tạo danh sách trống.");
+                C.WriteLine("Lỗi định dạng JSON trong file. Khởi tạo danh sách trống.");
                 danhSachSv = new List<SinhVien>();
             }
             catch (IOException ex)
             {
-                Console.WriteLine($"Lỗi I/O khi đọc file: {ex.Message}. Khởi tạo danh sách trống.");
+                C.WriteLine($"Lỗi I/O khi đọc file: {ex.Message}. Khởi tạo danh sách trống.");
                 danhSachSv = new List<SinhVien>();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi không xác định khi đọc file: {ex.Message}. Khởi tạo danh sách trống.");
+                C.WriteLine($"Lỗi không xác định khi đọc file: {ex.Message}. Khởi tạo danh sách trống.");
                 danhSachSv = new List<SinhVien>();
-                
+
             }
         }
 
@@ -65,9 +65,9 @@ namespace QuanLyKhoi.QuanLySinhVien
             try
             {
                 string jsonString = JsonSerializer.Serialize(danhSachSv);
-                File.WriteAllText(File_Name,jsonString);
+                File.WriteAllText(File_Name, jsonString);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 C.WriteLine($"Lỗi khi lưu file{ex.Message}");
             }
@@ -79,27 +79,57 @@ namespace QuanLyKhoi.QuanLySinhVien
             C.WriteLine("\n-----Thêm sinh viên-----");
             // mã sinh viên 
             C.WriteLine("Nhập mã sinh viên: ");
-            string? input = Console.ReadLine();
+            string? input = C.ReadLine();
             if (string.IsNullOrWhiteSpace(input))
             {
                 throw new Exception("Mã sinh viên không được để trống.");
             }
             string maSv = input;
             // họ tên sinh viên 
-            Console.Write("Nhập họ và tên: ");
-            string fullNameOfStudent = Console.ReadLine();
+            C.Write("Nhập họ và tên: ");
+            string? fullNameOfStudent = C.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(fullNameOfStudent))
+            {
+                throw new Exception("Họ và tên không được để trống.");
+            }
 
             while (fullNameOfStudent.Any(char.IsDigit))
             {
-                Console.WriteLine("Lỗi: Họ và tên không được chứa số. Vui lòng nhập lại!");
-                Console.Write("Nhập họ và tên: ");
-                fullNameOfStudent = Console.ReadLine();
+                C.WriteLine("Lỗi: Họ và tên không được chứa số. Vui lòng nhập lại!");
+                C.Write("Nhập họ và tên: ");
+                fullNameOfStudent = C.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(fullNameOfStudent))
+                {
+                    throw new Exception("Họ và tên không được để trống.");
+                }
             }
 
-            Console.WriteLine("Họ và tên hợp lệ: " + fullNameOfStudent);
+            C.WriteLine("Họ và tên hợp lệ: " + fullNameOfStudent);
 
+            // nhập tuổi của sinh viên 
+
+            C.Write("Nhập số tuổi của sinh viên: ");
+            if(!int.TryParse(C.ReadLine(), out int tuoi) || tuoi <= 0)
+            {
+                throw new ArgumentException("Tuổi không hợp lệ.");
+            }
+
+            // nhập điểm trung bình 
+
+            C.Write("Nhập điểm trung bình (0-10): ");
+
+            if(!double.TryParse(C.ReadLine(),out double diemTbinh) || diemTbinh < 0 || diemTbinh >= 10)
+            {
+                throw new ArgumentException("Điểm trung bình không hợp lệ!");
+            }
+            danhSachSv.Add(new SinhVien(maSv,fullNameOfStudent,tuoi,diemTbinh));
+            C.WriteLine("Lưu file thành công!");
+            LuuFile();
+            Thread.Sleep(1500);
         }
-        
+
     }
-    
+
 }
