@@ -73,10 +73,11 @@ namespace QuanLyKhoi.QuanLySinhVien
             }
 
         }
-
+        // hàm thêm sinh viên 
         public static void AddStudent()
         {
             C.WriteLine("\n-----Thêm sinh viên-----");
+            // mã sinh viên 
             C.WriteLine("Nhập mã sinh viên: ");
             string? input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input))
@@ -84,6 +85,18 @@ namespace QuanLyKhoi.QuanLySinhVien
                 throw new Exception("Mã sinh viên không được để trống.");
             }
             string maSv = input;
+            // họ tên sinh viên 
+            Console.Write("Nhập họ và tên: ");
+            string fullNameOfStudent = Console.ReadLine();
+
+            while (fullNameOfStudent.Any(char.IsDigit))
+            {
+                Console.WriteLine("Lỗi: Họ và tên không được chứa số. Vui lòng nhập lại!");
+                Console.Write("Nhập họ và tên: ");
+                fullNameOfStudent = Console.ReadLine();
+            }
+
+            Console.WriteLine("Họ và tên hợp lệ: " + fullNameOfStudent);
 
         }
         
