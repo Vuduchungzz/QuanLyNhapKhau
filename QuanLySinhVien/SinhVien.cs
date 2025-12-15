@@ -1,7 +1,9 @@
+// File: SinhVien.cs
+using System;
 
 namespace QuanLyKhoi.QuanLySinhVien
 {
-    // Cần là public hoặc internal, tùy thuộc vào cách bạn tổ chức
+    // Đã sửa lại là public class để dễ truy cập hơn.
     public class SinhVien 
     {
         public string MaSV { get; set; }
@@ -9,6 +11,8 @@ namespace QuanLyKhoi.QuanLySinhVien
         public int Tuoi { get; set; }
         public double DiemTB { get; set; }
 
+        // 💡 BẮT BUỘC: Constructor mặc định cho JSON Deserialization
+        public SinhVien() { }
         
         public SinhVien(string maSv, string hoTen, int tuoi, double diemTb)
         {
