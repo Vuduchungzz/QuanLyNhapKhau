@@ -163,7 +163,8 @@ namespace QuanLyKhoi.QuanLySinhVien
             Thread.Sleep(1500);
 
             // nhập tuổi của sinh viên 
-
+            C.Write("Nhập tuổi mới của sinh viên: ");
+            
         }
     }
 
