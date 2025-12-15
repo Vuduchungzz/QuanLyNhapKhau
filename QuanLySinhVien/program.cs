@@ -57,8 +57,6 @@ namespace QuanLyKhoi.QuanLySinhVien
 
             }
         }
-
-
         // lưu fille 
         public static void LuuFile()
         {
@@ -129,7 +127,6 @@ namespace QuanLyKhoi.QuanLySinhVien
             LuuFile();
             Thread.Sleep(1500);
         }
-
         // sửa sinh viên 
         public static void SuaSinhVien()
         {
@@ -166,6 +163,27 @@ namespace QuanLyKhoi.QuanLySinhVien
             C.Write("Nhập tuổi mới của sinh viên: ");
             
         }
+
+        // xoá sinh viên 
+        public static void xoaSinhVien()
+        {
+            C.WriteLine("=== Xoá sinh viên === ");
+            C.WriteLine("Nhập mã sinh viên cần xoá: ");
+            string maSv = Console.ReadLine();
+            int soLuongXoa = danhSachSv.RemoveAll(sv => sv.MaSV.Equals(maSv,StringComparison.OrdinalIgnoreCase));
+
+            if(soLuongXoa > 0)
+            {
+                Console.WriteLine($"\n✅ Đã xóa thành công {soLuongXoa} sinh viên có Mã SV '{maSv}'.");
+                LuuFile();
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Không tìm thấy sinh viên có Mã SV '{maSv}' để xóa.");
+            }
+            Thread.Sleep(1500);
+        }
+        
     }
 
 }
